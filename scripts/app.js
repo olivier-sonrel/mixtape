@@ -179,4 +179,6 @@ function init() {
   };
 
   isAppInit = true;
+
+  console.log('test git')
 }
