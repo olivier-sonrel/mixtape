@@ -57,10 +57,11 @@ function init() {
   function updatePage(e) {
       KeyFlag = false;
 
-      //CurX = e.pageX;
-      //CurY = e.pageY;
-      CurX = (rawData1-5911)/30;
-      CurY = (rawData2-5911)/60;
+      // CHANGE VALUE X Y HERE
+      CurX = e.pageX;
+      CurY = e.pageY;
+      //CurX = (rawData1-5911)/30;
+      //CurY = (rawData2-5911)/60;
 
       console.log(CurX, CurY);
 
