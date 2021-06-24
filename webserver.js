@@ -54,28 +54,16 @@ io.sockets.on('connection', function (socket) {// WebSocket Connection
       LED.writeSync(lightvalue); //turn LED on or off
     }
   });
-  socket.emit('CurlX', {dataX: 'zobzobzon'});
 
-
-  // socket.emit('CurlX', function(x) { //get light switch status from client
-  //   valueX = x;
-
-  //   //TO CLEAN
-  //   const i2c1 = i2c.openSync(1);
-  //   while(true){
-    
-  //           var dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
-   
-  //           console.log('data X', dataX);
-  //           sleep.sleep(WAIT);
-  //   }
-  //   i2c1.closeSync();
-  //   //endTO CLEAN
-
-  //   if (lightvalue != LED.readSync()) { //only change LED if status has changed
-  //     LED.writeSync(lightvalue); //turn LED on or off
-  //   }
-  // });
+  socket.emit('CurlX', function(dataX) { //get light switch status from client
+    const i2c1 = i2c.openSync(1);
+    while(true){
+            var dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
+            console.log('data X', dataX);
+            sleep.sleep(WAIT);
+    }
+    i2c1.closeSync();
+  });
   //TODO
   socket.on('CurlY', function(y) { //get light switch status from client
     valueY = y;
