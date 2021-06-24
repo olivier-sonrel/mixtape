@@ -57,6 +57,14 @@ socket.on('light', function (data) { //get button status from client
   socket.emit("light", data); //send push button status to back to server
 });
 
+socket.on('CurlX', function (x) { //get button status from client
+  //socket.emit("CurlX", data); //send push button status to back to server
+});
+
+socket.on('CurlY', function (y) { //get button status from client
+  //socket.emit("CurlY", data); //send push button status to back to server
+});
+//TODO socket.on('CurlY');
 </script>
 
 </body>

@@ -22,10 +22,6 @@ const ADS7830 = 0x4b;
 const CHANNELS = [0x84, 0xc4, 0x94, 0xd4, 0xa4, 0xe4, 0xb4, 0xf4];
 const WAIT = 2;
 
-
-
-
-
 http.listen(8080); //listen to port 8080
 
 function handler (req, res) { //create server
@@ -54,6 +50,37 @@ io.sockets.on('connection', function (socket) {// WebSocket Connection
 
   socket.on('light', function(data) { //get light switch status from client
     lightvalue = data;
+    if (lightvalue != LED.readSync()) { //only change LED if status has changed
+      LED.writeSync(lightvalue); //turn LED on or off
+    }
+  });
+
+  socket.on('CurlX', function(x) { //get light switch status from client
+    valueX = x;
+
+    //TO CLEAN
+    const i2c1 = i2c.openSync(1);
+    while(true){
+    
+            const rawData1 = i2c1.readWordSync(ADS7830, CHANNELS[0]);
+            const rawData2 = i2c1.readWordSync(ADS7830, CHANNELS[1]);
+            const rawData3 = i2c1.readWordSync(ADS7830, CHANNELS[7]);
+    
+            console.log('rawdata2', rawData2);
+            console.log('rawData1', rawData1);
+            console.log('rawData3', rawData3);
+            sleep.sleep(WAIT);
+    }
+    i2c1.closeSync();
+    //endTO CLEAN
+
+    if (lightvalue != LED.readSync()) { //only change LED if status has changed
+      LED.writeSync(lightvalue); //turn LED on or off
+    }
+  });
+  //TODO
+  socket.on('CurlY', function(y) { //get light switch status from client
+    valueY = y;
 
     //TO CLEAN
     const i2c1 = i2c.openSync(1);
