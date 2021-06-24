@@ -54,30 +54,28 @@ io.sockets.on('connection', function (socket) {// WebSocket Connection
       LED.writeSync(lightvalue); //turn LED on or off
     }
   });
+  socket.emit('CurlX', {dataX: 'zobzobzon'});
 
-  socket.on('CurlX', function(x) { //get light switch status from client
-    valueX = x;
 
-    //TO CLEAN
-    const i2c1 = i2c.openSync(1);
-    while(true){
+  // socket.emit('CurlX', function(x) { //get light switch status from client
+  //   valueX = x;
+
+  //   //TO CLEAN
+  //   const i2c1 = i2c.openSync(1);
+  //   while(true){
     
-            const rawData1 = i2c1.readWordSync(ADS7830, CHANNELS[0]);
-            const rawData2 = i2c1.readWordSync(ADS7830, CHANNELS[1]);
-            const rawData3 = i2c1.readWordSync(ADS7830, CHANNELS[7]);
-    
-            console.log('rawdata2', rawData2);
-            console.log('rawData1', rawData1);
-            console.log('rawData3', rawData3);
-            sleep.sleep(WAIT);
-    }
-    i2c1.closeSync();
-    //endTO CLEAN
+  //           var dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
+   
+  //           console.log('data X', dataX);
+  //           sleep.sleep(WAIT);
+  //   }
+  //   i2c1.closeSync();
+  //   //endTO CLEAN
 
-    if (lightvalue != LED.readSync()) { //only change LED if status has changed
-      LED.writeSync(lightvalue); //turn LED on or off
-    }
-  });
+  //   if (lightvalue != LED.readSync()) { //only change LED if status has changed
+  //     LED.writeSync(lightvalue); //turn LED on or off
+  //   }
+  // });
   //TODO
   socket.on('CurlY', function(y) { //get light switch status from client
     valueY = y;
@@ -86,13 +84,9 @@ io.sockets.on('connection', function (socket) {// WebSocket Connection
     const i2c1 = i2c.openSync(1);
     while(true){
     
-            const rawData1 = i2c1.readWordSync(ADS7830, CHANNELS[0]);
-            const rawData2 = i2c1.readWordSync(ADS7830, CHANNELS[1]);
-            const rawData3 = i2c1.readWordSync(ADS7830, CHANNELS[7]);
+            var dataY = (i2c1.readWordSync(ADS7830, CHANNELS[1])-5911)/60;
     
-            console.log('rawdata2', rawData2);
-            console.log('rawData1', rawData1);
-            console.log('rawData3', rawData3);
+            console.log('data Y', dataY);
             sleep.sleep(WAIT);
     }
     i2c1.closeSync();
