@@ -63,7 +63,7 @@ function init() {
       //CurX = e.pageX;
       //CurY = e.pageY;
 
-      console.log(CurX, CurY);
+      console.log("PotX PotY", potX, potY);
 
       oscillator.frequency.value = (CurX/WIDTH) * maxFreq;
       gainNode.gain.value = (CurY/HEIGHT) * maxVol;
