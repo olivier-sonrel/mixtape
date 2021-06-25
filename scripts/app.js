@@ -6,6 +6,13 @@ var potY;
 
 var socket = io(); //load socket.io-client and connect to the host that serves the page
 
+socket.on('Curl', function (data) { //get button status from client
+  potX = data.dataX;
+  potY = data.dataY;
+  console.log('dataX', data.dataX);
+  console.log('dataY', data.dataY);
+});
+
 let isAppInit = false;
 appContents.style.display = 'none';
 
@@ -24,12 +31,7 @@ window.addEventListener("load", init);
 //   socket.emit("light", data); //send push button status to back to server
 // });
 
-socket.on('Curl', function (data) { //get button status from client
-  potX = data.dataX;
-  potY = data.dataY;
-  console.log('dataX', data.dataX);
-  console.log('dataY', data.dataY);
-});
+
 
 function init() {
   if (isAppInit) {
