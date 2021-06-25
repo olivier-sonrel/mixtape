@@ -52,18 +52,18 @@ function init() {
 
   // Get new mouse pointer coordinates when mouse is moved
   // then set new gain and pitch values
-  document.onload = updatePage;
+  document.onmousemove = updatePage;
 
   function updatePage(e) {
       KeyFlag = false;
 
-      CurX = potX;
-      CurY = potY;
+      //CurX = potX;
+      //CurY = potY;
       //TODO CHANGE VALUE X Y HERE
-      //CurX = e.pageX;
-      //CurY = e.pageY;
-
-      console.log("PotX PotY", potX, potY);
+      CurX = e.pageX;
+      CurY = e.pageY;
+      console.log(e, CurX, CurY);
+      //console.log("PotX PotY", potX, potY);
 
       oscillator.frequency.value = (CurX/WIDTH) * maxFreq;
       gainNode.gain.value = (CurY/HEIGHT) * maxVol;
