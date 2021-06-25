@@ -10,6 +10,8 @@ appContents.style.display = 'none';
 window.addEventListener('keydown', init);
 window.addEventListener('click', init);
 
+window.onload = init;
+
 function init() {
   if (isAppInit) {
     console.log("is app init");
