@@ -47,8 +47,8 @@ function init() {
   gainNode.gain.maxValue = initialVol;
 
   // Mouse pointer coordinates
-  let CurX;
-  let CurY;
+  var CurX;
+  var CurY;
 
   // Get new mouse pointer coordinates when mouse is moved
   // then set new gain and pitch values
