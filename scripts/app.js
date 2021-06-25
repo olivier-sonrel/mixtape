@@ -37,7 +37,7 @@ function init() {
   if (isAppInit) {
     return;
   }
-
+console.log("in init");
   appContents.style.display = 'block';
   document.body.removeChild(startMessage);
 
