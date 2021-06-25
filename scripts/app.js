@@ -7,6 +7,9 @@ var potY;
 let isAppInit = false;
 appContents.style.display = 'none';
 
+window.addEventListener('keydown', init);
+window.addEventListener('click', init);
+
 function init() {
   if (isAppInit) {
     console.log("is app init");

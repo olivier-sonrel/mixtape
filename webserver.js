@@ -34,9 +34,6 @@ function handler (req, res) { //create server
   });
 }
 
-window.addEventListener('keydown', init);
-window.addEventListener('click', init);
-
 io.sockets.on('connection', function (socket) {// WebSocket Connection
   const i2c1 = i2c.openSync(1);
   var dataX=1;
