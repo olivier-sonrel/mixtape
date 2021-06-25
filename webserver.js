@@ -33,11 +33,29 @@ function handler (req, res) { //create server
     return res.end();
   });
 }
-io.on('connection', function (socket) {// WebSocket Connection
+io.sockets.on('connection', function (socket) {// WebSocket Connection
 
   const i2c1 = i2c.openSync(1);
   var dataX=1;
   var dataY = 1;
+  var lightvalue = 0; //static variable for current status
+  
+  pushButton.watch(function (err, value) { //Watch for hardware interrupts on pushButton
+    if (err) { //if an error
+      console.error('There was an error', err); //output error message to console
+      return;
+    }
+    lightvalue = value;
+    console.log('V',value);
+    socket.emit('light', lightvalue); //send button status to client
+  });
+
+  socket.on('light', function(data) { //get light switch status from client
+    lightvalue = data;
+    if (lightvalue != LED.readSync()) { //only change LED if status has changed
+      LED.writeSync(lightvalue); //turn LED on or off
+    }
+  });
 
   setInterval(() => {       
     dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0]) - 5911) / 30;
