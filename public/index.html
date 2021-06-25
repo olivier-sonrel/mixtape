@@ -40,6 +40,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
   
   <script>
+    var socket = io();
+
     window.addEventListener("load", function(){ //when page loads
       var lightbox = document.getElementById("light");
       lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
