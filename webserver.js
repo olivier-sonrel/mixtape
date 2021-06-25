@@ -76,12 +76,35 @@ io.on('connection', function (socket) {// WebSocket Connection
       const i2c1 = i2c.openSync(1);
 
     var dataX=1;
-    while (dataX > 0) {
-        dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0]) - 5911) / 30;
-        console.log('data X', dataX);
-        socket.emit('CurlX', dataX);
-        sleep.sleep(WAIT);
-    }
+var dataY = 1;
+   // while (dataX > 0 || dataY > 0) {
+        //sleep.sleep(1);
+//	dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0]) - 5911) / 30;
+ //       dataY = (i2c1.readWordSync(ADS7830, CHANNELS[1]) - 5911) / 60;
+//console.log('data X', dataX);
+  //      console.log('data Y', dataY);
+
+	setInterval(() => {       
+    dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0]) - 5911) / 30;
+        dataY = (i2c1.readWordSync(ADS7830, CHANNELS[1]) - 5911) / 60;
+console.log('data X', dataX);
+        console.log('data Y', dataY);
+	
+	
+	var obj = {dataX: dataX, dataY: dataY};
+        //socket.emit('CurlY', dataY);
+        //socket.emit('CurlX', dataX);
+        socket.emit('Curl', obj);
+ 	}, 500);
+   // }
+
+// var dataY = 1;
+  //  while (dataY > 0) {
+       // dataY = (i2c1.readWordSync(ADS7830, CHANNELS[1]) - 5911) / 60;
+       // console.log('data Y', dataY);
+       // socket.emit('CurlY', dataY);
+       // sleep.sleep(WAIT);
+   // }
     i2c1.closeSync();
 //  while(true) {
 //if (dataX != (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30) {
@@ -105,32 +128,32 @@ io.on('connection', function (socket) {// WebSocket Connection
    // i2c1.closeSync(0);
  // });
 
-  //TODO
-  socket.on('CurlY', function(y) { //get light switch status from client
-    valueY = y;
+    //TODO
+    //     socket.on('CurlY', function(y) { //get light switch status from client
+    //         valueY = y;
 
-    //TO CLEAN
-    const i2c1 = i2c.openSync(1);
-    while(true){
-    
-            var dataY = (i2c1.readWordSync(ADS7830, CHANNELS[1])-5911)/60;
-    
-            console.log('data Y', dataY);
-            sleep.sleep(WAIT);
-    }
-    i2c1.closeSync();
-    //endTO CLEAN
+    //         //TO CLEAN
+    //         const i2c1 = i2c.openSync(1);
+    //         while (true) {
 
-    if (lightvalue != LED.readSync()) { //only change LED if status has changed
-      LED.writeSync(lightvalue); //turn LED on or off
-    }
-  });
-});
-  
-process.on('SIGINT', function () { //on ctrl+c
-  LED.writeSync(0); // Turn LED off
-  LED.unexport(); // Unexport LED GPIO to free resources
-  pushButton.unexport(); // Unexport Button GPIO to free resources
-  process.exit(); //exit completely
+    //             var dataY = (i2c1.readWordSync(ADS7830, CHANNELS[1]) - 5911) / 60;
+
+    //             console.log('data Y', dataY);
+    //             sleep.sleep(WAIT);
+    //         }
+    //         i2c1.closeSync();
+    //         //endTO CLEAN
+
+    //         if (lightvalue != LED.readSync()) { //only change LED if status has changed
+    //             LED.writeSync(lightvalue); //turn LED on or off
+    //         }
+    //     });
+    // });
+
+    // process.on('SIGINT', function() { //on ctrl+c
+    //     LED.writeSync(0); // Turn LED off
+    //     LED.unexport(); // Unexport LED GPIO to free resources
+    //     pushButton.unexport(); // Unexport Button GPIO to free resources
+    //     process.exit(); //exit completely
 });
   
