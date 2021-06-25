@@ -52,7 +52,7 @@ function init() {
 
   // Get new mouse pointer coordinates when mouse is moved
   // then set new gain and pitch values
-  document.onmousemove = updatePage;
+  document.onload = updatePage;
 
   function updatePage(e) {
       KeyFlag = false;
