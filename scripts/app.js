@@ -35,6 +35,7 @@ window.addEventListener("load", init);
 
 function init() {
   if (isAppInit) {
+    console.log("is app init");
     return;
   }
 console.log("in init");
