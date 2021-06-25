@@ -33,13 +33,16 @@ function handler (req, res) { //create server
     return res.end();
   });
 }
-io.sockets.on('connection', function (socket) {// WebSocket Connection
 
+window.addEventListener('keydown', init);
+window.addEventListener('click', init);
+
+io.sockets.on('connection', function (socket) {// WebSocket Connection
   const i2c1 = i2c.openSync(1);
   var dataX=1;
   var dataY = 1;
   var lightvalue = 0; //static variable for current status
-  
+
   pushButton.watch(function (err, value) { //Watch for hardware interrupts on pushButton
     if (err) { //if an error
       console.error('There was an error', err); //output error message to console
