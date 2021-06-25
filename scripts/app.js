@@ -6,13 +6,6 @@ var potY;
 
 var socket = io(); //load socket.io-client and connect to the host that serves the page
 
-socket.on('Curl', function (data) { //get button status from client
-  potX = data.dataX;
-  potY = data.dataY;
-  console.log('dataX', data.dataX);
-  console.log('dataY', data.dataY);
-});
-
 let isAppInit = false;
 appContents.style.display = 'none';
 
@@ -38,7 +31,15 @@ function init() {
     console.log("is app init");
     return;
   }
-console.log("in init");
+
+  socket.on('Curl', function (data) { //get button status from client
+    potX = data.dataX;
+    potY = data.dataY;
+    console.log('dataX', data.dataX);
+    console.log('dataY', data.dataY);
+  });
+
+  console.log("in init");
   appContents.style.display = 'block';
   document.body.removeChild(startMessage);
 
