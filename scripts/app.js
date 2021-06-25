@@ -4,33 +4,8 @@ const startMessage = document.querySelector('.start-message');
 var potX;
 var potY;
 
-
-
 let isAppInit = false;
 appContents.style.display = 'none';
-
-window.addEventListener('keydown', init);
-//window.addEventListener('click', init);
-window.addEventListener("load", init);
-// window.addEventListener("load", function(){ //when page loads
-//   var lightbox = document.getElementById("light");
-//   lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
-//     socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
-//   });
-// });
-
-// socket.on('light', function (data) { //get button status from client
-//   document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
-//   socket.emit("light", data); //send push button status to back to server
-// });
-
-var socket = io();
-socket.on('Curl', function (data) { //get button status from client
-  potX = data.dataX;
-  potY = data.dataY;
-  console.log('dataX', data.dataX);
-  console.log('dataY', data.dataY);
-});
 
 function init() {
   if (isAppInit) {
@@ -90,7 +65,7 @@ function init() {
       //TODO CHANGE VALUE X Y HERE
       CurX = e.pageX;
       CurY = e.pageY;
-      console.log(e, CurX, CurY);
+      console.log('e, curx, cury: ', e, CurX, CurY);
       //console.log("PotX PotY", potX, potY);
 
       oscillator.frequency.value = (CurX/WIDTH) * maxFreq;
@@ -209,6 +184,4 @@ function init() {
   };
 
   isAppInit = true;
-
-  console.log('test git')
 }

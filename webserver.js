@@ -16,11 +16,9 @@ var LED = new Gpio(26, 'out'); //use GPIO pin 4 as output
 var pushButton = new Gpio(17, 'in', 'both'); //use GPIO pin 17 as input, and 'both' button presses, and releases should be handled
 
 const i2c = require('i2c-bus');
-const sleep = require('sleep');
 
 const ADS7830 = 0x4b;
 const CHANNELS = [0x84, 0xc4, 0x94, 0xd4, 0xa4, 0xe4, 0xb4, 0xf4];
-const WAIT = 2;
 
 http.listen(8080); //listen to port 8080
 
