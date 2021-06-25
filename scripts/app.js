@@ -7,8 +7,8 @@ var potY;
 let isAppInit = false;
 appContents.style.display = 'none';
 
-window.addEventListener('keydown', init);
-window.addEventListener('click', init);
+//window.addEventListener('keydown', init);
+//window.addEventListener('click', init);
 
 window.onload = init;
 
