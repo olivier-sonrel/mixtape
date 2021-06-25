@@ -35,35 +35,66 @@ function handler (req, res) { //create server
     return res.end();
   });
 }
+io.on('connection', function (socket) {// WebSocket Connection
+//io.sockets.on('connection', function (socket) {// WebSocket Connection
+  // var lightvalue = 0; //static variable for current status
+  // pushButton.watch(function (err, value) { //Watch for hardware interrupts on pushButton
+  //   if (err) { //if an error
+  //     console.error('There was an error', err); //output error message to console
+  //     return;
+  //   }
+  //   lightvalue = value;
+  //   console.log('V',value);
+  //   socket.emit('light', lightvalue); //send button status to client
+  // });
 
-io.sockets.on('connection', function (socket) {// WebSocket Connection
-  var lightvalue = 0; //static variable for current status
-  pushButton.watch(function (err, value) { //Watch for hardware interrupts on pushButton
-    if (err) { //if an error
-      console.error('There was an error', err); //output error message to console
-      return;
-    }
-    lightvalue = value;
-    console.log('V',value);
-    socket.emit('light', lightvalue); //send button status to client
-  });
+  // socket.on('light', function(data) { //get light switch status from client
+  //   lightvalue = data;
+  //   if (lightvalue != LED.readSync()) { //only change LED if status has changed
+  //     LED.writeSync(lightvalue); //turn LED on or off
+  //   }
+  // });
 
-  socket.on('light', function(data) { //get light switch status from client
-    lightvalue = data;
-    if (lightvalue != LED.readSync()) { //only change LED if status has changed
-      LED.writeSync(lightvalue); //turn LED on or off
-    }
-  });
-
-  socket.emit('CurlX', function(dataX) { //get light switch status from client
-    //const i2c1 = i2c.openSync(1);
+// var xx = function(cb) {
+	
+//	return cb(null,1000);
+//}
+//var xx = 'toto';
+//socket.emit('CurlX', {message: xx});
+//  socket.emit('CurlX', xx); //{ //get light switch status from client
+   // const i2c1 = i2c.openSync(1);
     //while(true){
-            dataX = 1000;//(i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
-            console.log('data X', dataX);
-            sleep.sleep(WAIT);
+           // dataX = 1000; //(i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
+           // console.log('data X', dataX);
+           // sleep.sleep(WAIT);
     //}
     //i2c1.closeSync();
-  });
+ // });
+  //var dataX = 100;
+var dataX = 0;
+  var i2c1 = i2c.openSync(1);
+//  while(true) {
+//if (dataX != (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30) {
+             dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
+          //   console.log('data X', dataX);
+            // sleep.sleep(WAIT);
+//socket.emit('CurlX', dataX);
+//	return dataX;
+//   }
+    i2c1.closeSync(0);
+//console.log('data X', dataX);
+  socket.emit('CurlX', dataX) //{ //get light switch status from client
+    //var i2c1;
+    //i2c1 = i2c.openSync(0);
+    // while(true) {
+            // dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
+//return dataX = 100;
+    //         console.log('data X', dataX);
+    //         sleep.sleep(WAIT);
+    // }
+   // i2c1.closeSync(0);
+ // });
+
   //TODO
   socket.on('CurlY', function(y) { //get light switch status from client
     valueY = y;
