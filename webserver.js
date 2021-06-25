@@ -56,13 +56,13 @@ io.sockets.on('connection', function (socket) {// WebSocket Connection
   });
 
   socket.emit('CurlX', function(dataX) { //get light switch status from client
-    const i2c1 = i2c.openSync(1);
-    while(true){
-            var dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
+    //const i2c1 = i2c.openSync(1);
+    //while(true){
+            dataX = 1000;//(i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
             console.log('data X', dataX);
             sleep.sleep(WAIT);
-    }
-    i2c1.closeSync();
+    //}
+    //i2c1.closeSync();
   });
   //TODO
   socket.on('CurlY', function(y) { //get light switch status from client
