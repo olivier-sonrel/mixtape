@@ -35,41 +35,40 @@
 
   <!-- The following element pulls in the script for the default template functionality -->
 
-    <script src="scripts/install.js"></script>
+  <script src="scripts/install.js"></script>
 
-    <!-- Below is your custom application script -->
+  <!-- Below is your custom application script -->
 
-    <script src="scripts/app.js"></script>
+  <script src="scripts/app.js"></script>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> <!-- include socket.io client side script -->
-<script>
-var socket = io(); //load socket.io-client and connect to the host that serves the page
-window.addEventListener("load", function(){ //when page loads
-  var lightbox = document.getElementById("light");
-  lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
-    socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> <!-- include socket.io client side script -->
+  <script>
+  var potX;
+  var potY;
+
+  var socket = io(); //load socket.io-client and connect to the host that serves the page
+  window.addEventListener("load", function(){ //when page loads
+    var lightbox = document.getElementById("light");
+    lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
+      socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
+    });
   });
-});
 
-socket.on('light', function (data) { //get button status from client
-  document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
-  socket.emit("light", data); //send push button status to back to server
-});
+  socket.on('light', function (data) { //get button status from client
+    document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
+    socket.emit("light", data); //send push button status to back to server
+  });
 
-socket.on('Curl', function (data) { //get button status from client
-	console.log("data", data);
-  	console.log('dataX', data.dataX);
-	console.log('dataY', data.dataY);
-  //socket.emit("CurlX", data); //send push button status to back to server
-});
+  socket.on('Curl', function (data) { //get button status from client
+    potX = data.dataX;
+    potY = data.dataY;
+    console.log("data", data);
+      console.log('dataX', data.dataX);
+    console.log('dataY', data.dataY);
+  });
 
-//socket.on('CurlY', function (dataY) { //get button status from client
-  //console.log('dataY', dataY);
- // socket.emit("CurlY", data); //send push button status to back to server
-//});
-//TODO socket.on('CurlY');
-</script>
+  </script>
 
 </body>
 </html>

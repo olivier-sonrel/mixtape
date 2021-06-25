@@ -57,6 +57,8 @@ function init() {
   function updatePage(e) {
       KeyFlag = false;
 
+      CurX = potX;
+      CurY = potY;
       //TODO CHANGE VALUE X Y HERE
       //CurX = e.pageX;
       //CurY = e.pageY;
