@@ -71,19 +71,29 @@ io.on('connection', function (socket) {// WebSocket Connection
     //i2c1.closeSync();
  // });
   //var dataX = 100;
-var dataX = 0;
-  var i2c1 = i2c.openSync(1);
+//var dataX = 0;
+
+      const i2c1 = i2c.openSync(1);
+
+    var dataX=1;
+    while (dataX > 0) {
+        dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0]) - 5911) / 30;
+        console.log('data X', dataX);
+        socket.emit('CurlX', dataX);
+        sleep.sleep(WAIT);
+    }
+    i2c1.closeSync();
 //  while(true) {
 //if (dataX != (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30) {
-             dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
+            // dataX = (i2c1.readWordSync(ADS7830, CHANNELS[0])-5911)/30;
           //   console.log('data X', dataX);
             // sleep.sleep(WAIT);
 //socket.emit('CurlX', dataX);
 //	return dataX;
 //   }
-    i2c1.closeSync(0);
+   // i2c1.closeSync(0);
 //console.log('data X', dataX);
-  socket.emit('CurlX', dataX) //{ //get light switch status from client
+ // socket.emit('CurlX', dataX) //{ //get light switch status from client
     //var i2c1;
     //i2c1 = i2c.openSync(0);
     // while(true) {
