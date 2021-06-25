@@ -4,7 +4,7 @@ const startMessage = document.querySelector('.start-message');
 var potX;
 var potY;
 
-var socket = io(); //load socket.io-client and connect to the host that serves the page
+
 
 let isAppInit = false;
 appContents.style.display = 'none';
@@ -24,6 +24,7 @@ window.addEventListener("load", init);
 //   socket.emit("light", data); //send push button status to back to server
 // });
 
+var socket = io();
 socket.on('Curl', function (data) { //get button status from client
   potX = data.dataX;
   potY = data.dataY;
