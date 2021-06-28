@@ -1,6 +1,10 @@
 var http = require('http').createServer(handler); //require http server, and create server with function handler()
 var fs = require('fs'); //require filesystem module
-var extension  = url_request.substring((tmp + 1));//test debug
+
+// parses the url request for a file and pulls the pathname
+var url_request = url.parse(request.url).pathname;
+var tmp  = url_request.lastIndexOf(".");
+var extension  = url_request.substring((tmp + 1));//TODO test debug
 
 var io = require('socket.io')(http, {
     cors: {
@@ -44,7 +48,7 @@ function handler (req, res) { //create server
     }
 
     response.end();
-    /*    res.writeHead(200, {'Content-Type': 'text/html'}); //write HTML
+    /* TODO   res.writeHead(200, {'Content-Type': 'text/html'}); //write HTML
         res.write(data); //write data from index.html
         return res.end();*/
   });
