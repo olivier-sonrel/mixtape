@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 var DEFAULT_VOLUME = .75
     , FADE_TIME = .5
     , MIN_FREQ = 1
