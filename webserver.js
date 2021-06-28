@@ -9,14 +9,14 @@ const io = require('socket.io')(http, {
         origin: "http://localhost:8000",
         methods: ["GET", "POST"],
         transports: ['websocket', 'polling'],
-        credendials: true
+        credentials: true
     },
     allowEIO3: true
 });
 
-var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
-var LED = new Gpio(26, 'out'); //use GPIO pin 4 as output
-var pushButton = new Gpio(17, 'in', 'both'); //use GPIO pin 17 as input, and 'both' button presses, and releases should be handled
+const Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
+const LED = new Gpio(26, 'out'); //use GPIO pin 4 as output
+const pushButton = new Gpio(17, 'in', 'both'); //use GPIO pin 17 as input, and 'both' button presses, and releases should be handled
 
 const i2c = require('i2c-bus');
 
@@ -72,9 +72,9 @@ http.createServer (function(req, res) { //create server
 
 io.sockets.on('connection', function (socket) {// WebSocket Connection
   const i2c1 = i2c.openSync(1);
-  var dataX=1;
-  var dataY = 1;
-  var lightvalue = 0; //static variable for current status
+    let dataX = 1;
+    let dataY = 1;
+    let lightvalue = 0; //static variable for current status
 
   pushButton.watch(function (err, value) { //Watch for hardware interrupts on pushButton
     if (err) { //if an error
@@ -98,9 +98,9 @@ io.sockets.on('connection', function (socket) {// WebSocket Connection
     dataY = (i2c1.readWordSync(ADS7830, CHANNELS[1]) - 5911) / 60;
     console.log('data X', dataX);
     console.log('data Y', dataY);
-    
-    var obj = {dataX: dataX, dataY: dataY};
-    socket.emit('Curl', obj);
+
+      let obj = {dataX: dataX, dataY: dataY};
+      socket.emit('Curl', obj);
   }, 500);
 
   i2c1.closeSync();
