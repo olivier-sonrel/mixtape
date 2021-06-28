@@ -1,5 +1,6 @@
 var http = require('http').createServer(handler); //require http server, and create server with function handler()
 var fs = require('fs'); //require filesystem module
+var extension  = url_request.substring((tmp + 1));//test debug
 
 var io = require('socket.io')(http, {
     cors: {
@@ -27,10 +28,25 @@ function handler (req, res) { //create server
     if (err) {
       res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
       return res.end("404 Not Found");
+    }else{
+      console.log('SUCCESS!');
+      // set content type
+      if (extension === 'html') response.writeHeader(200, {"Content-Type": 'text/html'});
+      else if (extension === 'htm') response.writeHeader(200, {"Content-Type": 'text/html'});
+      else if (extension === 'css') response.writeHeader(200, {"Content-Type": 'text/css'});
+      else if (extension === 'js') response.writeHeader(200, {"Content-Type": 'text/javascript'});
+      else if (extension === 'png') response.writeHeader(200, {"Content-Type": 'image/png'});
+      else if (extension === 'jpg') response.writeHeader(200, {"Content-Type": 'image/jpg'});
+      else if (extension === 'jpeg') response.writeHeader(200, {"Content-Type": 'image/jpeg'});
+      else { console.log("NO CORRECT EXTENSION")};
+      console.log(extension);
+      response.end(contents);
     }
-    res.writeHead(200, {'Content-Type': 'text/html'}); //write HTML
-    res.write(data); //write data from index.html
-    return res.end();
+
+    response.end();
+    /*    res.writeHead(200, {'Content-Type': 'text/html'}); //write HTML
+        res.write(data); //write data from index.html
+        return res.end();*/
   });
 }
 
