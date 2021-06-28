@@ -26,6 +26,7 @@ const CHANNELS = [0x84, 0xc4, 0x94, 0xd4, 0xa4, 0xe4, 0xb4, 0xf4];
 http.createServer (function(req, res) { //create server
     console.log(req.url);
     if(req.url.includes('/scripts/') || req.url.includes('/styles/') ) {
+        console.log(req.url + 'is an upload');
         fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
             //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
             let filePath = path.join(__dirname, "public", req.url);
