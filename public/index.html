@@ -21,7 +21,6 @@
 
 </head>
 <body>
-<script>writeCookieMessage("privacy.htm");</script>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
     <symbol id="svg-Lspeaker-icon" viewBox="0 0 40 38">
@@ -95,16 +94,16 @@
     </div>
     <script>
         var container = document.getElementById("otgbanad-2");
-        if (AD_FREE || AD_PLACEMENT != 2) {
+/*        if (AD_FREE || AD_PLACEMENT != 2) {
             //container.style.height = "auto";
             //container.querySelector(".ad-remove-ui").style.display = "none";
-        } else {
+        } else {*/
             container.style.display = "block";
             var ins = container.querySelector("ins");
             ins.className = "adsbygoogle example";
             adUnits.add("otgbanad-2");
             (adsbygoogle = window.adsbygoogle || []).push({});
-        }
+        /*}*/
     </script>
 
     <div class=warning>
@@ -205,26 +204,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 
 <script>
-    var socket = io();
+    const socket = io();
 
-    window.addEventListener("load", function(){ //when page loads
-        var lightbox = document.getElementById("light");
-        lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
-            socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
+    /*    window.addEventListener("load", function(){ //when page loads
+            var lightbox = document.getElementById("light");
+            lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
+                socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
+            });
         });
-    });
 
-    socket.on('light', function (data) { //get button status from client
-        document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
-        socket.emit("light", data); //send push button status to back to server
-    });
+        socket.on('light', function (data) { //get button status from client
+            document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
+            socket.emit("light", data); //send push button status to back to server
+        });*/
 
-    var socket = io();
     socket.on('Curl', function (data) { //get button status from client
         potX = data.dataX;
         potY = data.dataY;
-        console.log('dataX', data.dataX);
-        console.log('dataY', data.dataY);
+        //console.log('dataX', data.dataX);
+        //console.log('dataY', data.dataY);
     });
 </script>
 </body>
