@@ -62,7 +62,7 @@ http.createServer (function(req, res) { //create server
                         contentType = 'image/jpg';
                         break;
                     default:
-                        contentType = 'text';
+                        console.log('ContentType default : ' + extName);
                 }
 
                 res.writeHead(200, {'Content-Type': contentType});
