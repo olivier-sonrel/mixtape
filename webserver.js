@@ -25,17 +25,28 @@ const CHANNELS = [0x84, 0xc4, 0x94, 0xd4, 0xa4, 0xe4, 0xb4, 0xf4];
 
 http.createServer (function(req, res) { //create server
     console.log(req.url);
-    if(req.url === '/'){
-        fs.readFile(__dirname + '/public/index.html', function(err, data) {
-                //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
-                let filePath = path.join(__dirname, "public", req.url);
+    if(req.url === '/') {
+        fs.readFile(__dirname + '/public/index.html', function (err, data) {
+            //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+            let filePath = path.join(__dirname, "public", req.url);
 
-                let extName = path.extname(filePath);
+            let extName = path.extname(filePath);
 
-                res.writeHead(200, {'Content-Type': 'text/html'});
-                res.write(data);
-                return res.end();
-            });
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write(data);
+            return res.end();
+        });
+        }else if(req.url.includes('/socket.io')){
+        fs.readFile(__dirname + '/public/index.html', function (err, data) {
+            //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+            let filePath = path.join(__dirname, "public", req.url);
+
+            let extName = path.extname(filePath);
+
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write(data);
+            return res.end();
+        });
         }else{
             fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
 
@@ -72,7 +83,7 @@ http.createServer (function(req, res) { //create server
         }
 }).listen(8080);
 
-/*io.sockets.on('connection', function (socket) {// WebSocket Connection
+io.sockets.on('connection', function (socket) {// WebSocket Connection
   const i2c1 = i2c.openSync(1);
     let dataX = 1;
     let dataY = 1;
@@ -106,4 +117,4 @@ http.createServer (function(req, res) { //create server
   }, 500);
 
   i2c1.closeSync();
-});*/
+});
