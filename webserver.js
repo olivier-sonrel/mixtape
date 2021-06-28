@@ -27,10 +27,8 @@ http.createServer (function(req, res) { //create server
     console.log(req.url);
     if(req.url.includes('/scripts/') || req.url.includes('/styles/') ) {
         fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
-
             //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
             let filePath = path.join(__dirname, "public", req.url);
-
             let extName = path.extname(filePath);
             let contentType = 'text/html';
 
@@ -53,7 +51,6 @@ http.createServer (function(req, res) { //create server
                 default:
                     console.log('ContentType default : ' + req.url);
             }
-
             res.writeHead(200, {'Content-Type': contentType});
             res.write(data);
             return res.end();
