@@ -1,5 +1,7 @@
 var http = require('http').createServer(handler); //require http server, and create server with function handler()
 var fs = require('fs'); //require filesystem module
+var url = require('url');
+var querystring = require('querystring');
 
 // parses the url request for a file and pulls the pathname
 var url_request = url.parse(request.url).pathname;
