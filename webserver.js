@@ -70,7 +70,7 @@ http.createServer (function(req, res) { //create server
         }
 }).listen(8080);
 
-io.sockets.on('connection', function (socket) {// WebSocket Connection
+/*io.sockets.on('connection', function (socket) {// WebSocket Connection
   const i2c1 = i2c.openSync(1);
     let dataX = 1;
     let dataY = 1;
@@ -104,4 +104,4 @@ io.sockets.on('connection', function (socket) {// WebSocket Connection
   }, 500);
 
   i2c1.closeSync();
-});
+});*/
