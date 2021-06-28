@@ -26,7 +26,7 @@ const CHANNELS = [0x84, 0xc4, 0x94, 0xd4, 0xa4, 0xe4, 0xb4, 0xf4];
 http.createServer (function(req, res) { //create server
     console.log(req.url);
     if(req.url.includes('/scripts/') || req.url.includes('/styles/') ) {
-        console.log(req.url + 'is an upload');
+        console.log(req.url + ' : is an upload');
         fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
             //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
             let filePath = path.join(__dirname, "public", req.url);
@@ -53,6 +53,16 @@ http.createServer (function(req, res) { //create server
                     console.log('ContentType default : ' + req.url);
             }
             res.writeHead(200, {'Content-Type': contentType});
+            res.write(data);
+            return res.end();
+        });
+    }
+    if(req.url.includes('/templates/')) {
+        console.log(req.url + ' : is an upload');
+        fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
+/*            let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+            let extName = path.extname(filePath);*/
+            res.writeHead(200, {'Content-Type': 'text/html'});
             res.write(data);
             return res.end();
         });
