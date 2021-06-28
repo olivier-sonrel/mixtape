@@ -24,6 +24,7 @@ const ADS7830 = 0x4b;
 const CHANNELS = [0x84, 0xc4, 0x94, 0xd4, 0xa4, 0xe4, 0xb4, 0xf4];
 
 http.createServer (function(req, res) { //create server
+    console.log(path);
   fs.readFile(__dirname + '/public/index.html', function(err, data) { //read file index.html in public folder
     if (err) {
       res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
@@ -53,8 +54,8 @@ http.createServer (function(req, res) { //create server
               break;
       }
 
-    res.writeHead(200, {'Content-Type': contentType}); //write HTML
-        res.write(data); //write data from index.html
+    res.writeHead(200, {'Content-Type': contentType});
+        res.write(data);
         return res.end();
   });
 }).listen(8080);
