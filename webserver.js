@@ -57,8 +57,8 @@ http.createServer (function(req, res) { //create server
             return res.end();
         });
     }
-    if(req.url.includes('/templates/')) {
-        console.log(req.url + ' : is an upload');
+  /*  if(req.url.includes('//')) {
+        console.log(req.url + ' : is an upload');*/
         fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
             let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
             let extName = path.extname(filePath);
@@ -66,7 +66,7 @@ http.createServer (function(req, res) { //create server
             res.write(data);
             return res.end();
         });
-    }
+/*    }
     fs.readFile(__dirname + '/public/index.html', function (err, data) {
         //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
         let filePath = path.join(__dirname, "public", req.url);
@@ -76,7 +76,7 @@ http.createServer (function(req, res) { //create server
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(data);
         return res.end();
-    });
+    });*/
 }).listen(8080);
 
 io.sockets.on('connection', function (socket) {// WebSocket Connection
