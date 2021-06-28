@@ -26,45 +26,48 @@ const CHANNELS = [0x84, 0xc4, 0x94, 0xd4, 0xa4, 0xe4, 0xb4, 0xf4];
 http.createServer (function(req, res) { //create server
     console.log(req.url);
     if(req.url === '/'){
-        fs.readFile(__dirname + '/public/index.html', function(err, data) { //read file index.html in public folder
-            if (err) {
-                res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
-                return res.end("404 Not Found");
-            }
-    }
-  fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
-    if (err) {
-      res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
-      return res.end("404 Not Found");
-    }
-      //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
-      let filePath = path.join(__dirname, "public", req.url);
+        fs.readFile(__dirname + '/public/index.html', function(err, data) {
+                //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+                let filePath = path.join(__dirname, "public", req.url);
 
-      let extName = path.extname(filePath);
-      let contentType = 'text/html';
+                let extName = path.extname(filePath);
 
-      switch (extName) {
-          case '.css':
-              contentType = 'text/css';
-              break;
-          case '.js':
-              contentType = 'text/javascript';
-              break;
-          case '.json':
-              contentType = 'application/json';
-              break;
-          case '.png':
-              contentType = 'image/png';
-              break;
-          case '.jpg':
-              contentType = 'image/jpg';
-              break;
-      }
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.write(data);
+                return res.end();
+            });
+        }else{
+            fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
 
-    res.writeHead(200, {'Content-Type': contentType});
-        res.write(data);
-        return res.end();
-  });
+                //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+                let filePath = path.join(__dirname, "public", req.url);
+
+                let extName = path.extname(filePath);
+                let contentType = 'text/html';
+
+                switch (extName) {
+                    case '.css':
+                        contentType = 'text/css';
+                        break;
+                    case '.js':
+                        contentType = 'text/javascript';
+                        break;
+                    case '.json':
+                        contentType = 'application/json';
+                        break;
+                    case '.png':
+                        contentType = 'image/png';
+                        break;
+                    case '.jpg':
+                        contentType = 'image/jpg';
+                        break;
+                }
+
+                res.writeHead(200, {'Content-Type': contentType});
+                res.write(data);
+                return res.end();
+            });
+        }
 }).listen(8080);
 
 io.sockets.on('connection', function (socket) {// WebSocket Connection
