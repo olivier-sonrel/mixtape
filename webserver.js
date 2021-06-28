@@ -1,14 +1,15 @@
-var http = require('http').createServer(handler); //require http server, and create server with function handler()
-var fs = require('fs'); //require filesystem module
-var url = require('url');
-var querystring = require('querystring');
+const http = require('http').createServer(handler); //require http server, and create server with function handler()
+const fs = require('fs'); //require filesystem module
+const url = require('url');
+const path = require('path');
+const querystring = require('querystring');
 
 // parses the url request for a file and pulls the pathname
-var url_request = url.parse(request.url).pathname;
-var tmp  = url_request.lastIndexOf(".");
+const url_request = url.parse(request.url).pathname;
+const tmp = url_request.lastIndexOf(".");
 var extension  = url_request.substring((tmp + 1));//TODO test debug
 
-var io = require('socket.io')(http, {
+const io = require('socket.io')(http, {
     cors: {
         origin: "http://localhost:8000",
         methods: ["GET", "POST"],
@@ -35,8 +36,34 @@ function handler (req, res) { //create server
       res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
       return res.end("404 Not Found");
     }
-    res.writeHead(200, {'Content-Type': 'text/html'}); //write HTML
-    res.writeHead(200, {'Content-Type': 'text/css'}); //write HTML
+      let filePath = path.join(
+          __dirname,
+          "public",
+          req.url === "/" ? "index.html" : req.url
+      );
+
+      let extName = path.extname(filePath);
+      let contentType = 'text/html';
+
+      switch (extName) {
+          case '.css':
+              contentType = 'text/css';
+              break;
+          case '.js':
+              contentType = 'text/javascript';
+              break;
+          case '.json':
+              contentType = 'application/json';
+              break;
+          case '.png':
+              contentType = 'image/png';
+              break;
+          case '.jpg':
+              contentType = 'image/jpg';
+              break;
+      }
+
+    res.writeHead(200, {'Content-Type': contentType}); //write HTML
         res.write(data); //write data from index.html
         return res.end();
   });
