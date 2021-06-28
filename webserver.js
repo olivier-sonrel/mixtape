@@ -23,8 +23,6 @@ const i2c = require('i2c-bus');
 const ADS7830 = 0x4b;
 const CHANNELS = [0x84, 0xc4, 0x94, 0xd4, 0xa4, 0xe4, 0xb4, 0xf4];
 
-http.listen(8080); //listen to port 8080
-
 http.createServer (function(req, res) { //create server
   fs.readFile(__dirname + '/public/index.html', function(err, data) { //read file index.html in public folder
     if (err) {
