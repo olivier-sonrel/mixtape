@@ -60,8 +60,8 @@ http.createServer (function(req, res) { //create server
     if(req.url.includes('/templates/')) {
         console.log(req.url + ' : is an upload');
         fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
-/*            let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
-            let extName = path.extname(filePath);*/
+            let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+            let extName = path.extname(filePath);
             res.writeHead(200, {'Content-Type': 'text/html'});
             res.write(data);
             return res.end();
