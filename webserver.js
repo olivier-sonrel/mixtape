@@ -29,6 +29,10 @@ http.createServer (function(req, res) { //create server
         console.log(req.url + ' : is an upload');
         fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
             //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+            if (err) {
+                res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
+                return res.end("404 Not Found : " + req.url);
+            }
             let filePath = path.join(__dirname, "public", req.url);
             let extName = path.extname(filePath);
             let contentType = 'text/html';
@@ -60,6 +64,10 @@ http.createServer (function(req, res) { //create server
   /*  if(req.url.includes('//')) {
         console.log(req.url + ' : is an upload');*/
         fs.readFile(__dirname + '/public' + req.url, function(err, data) { //read file index.html in public folder
+            if (err) {
+                res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
+                return res.end("404 Not Found : " + req.url);
+            }
             let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
             let extName = path.extname(filePath);
             res.writeHead(200, {'Content-Type': 'text/html'});
