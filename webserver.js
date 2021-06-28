@@ -29,11 +29,8 @@ http.createServer (function(req, res) { //create server
       res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
       return res.end("404 Not Found");
     }
-      let filePath = path.join(
-          __dirname,
-          "public",
-          req.url === "/" ? "index.html" : req.url
-      );
+      //let filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+      let filePath = path.join(__dirname, "public", req.url);
 
       let extName = path.extname(filePath);
       let contentType = 'text/html';
