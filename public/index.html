@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="../scripts/tone-generator.css">
+    <link rel="stylesheet" href="../styles/tone-generator.css">
     <link rel="shortcut icon" href="tone-generator-favicon.png">
     <link rel="apple-touch-icon" href="tone-generator-apple.png" sizes="180x180">
     <script src="../scripts/frequency-generator.js"></script>
@@ -202,20 +202,41 @@
     </div>
 
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+
+<script>
+    var socket = io();
+
+    window.addEventListener("load", function(){ //when page loads
+        var lightbox = document.getElementById("light");
+        lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
+            socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
+        });
+    });
+
+    socket.on('light', function (data) { //get button status from client
+        document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
+        socket.emit("light", data); //send push button status to back to server
+    });
+
+    var socket = io();
+    socket.on('Curl', function (data) { //get button status from client
+        potX = data.dataX;
+        potY = data.dataY;
+        console.log('dataX', data.dataX);
+        console.log('dataY', data.dataY);
+    });
+</script>
 </body>
 </html>
+
+
 <!--<!DOCTYPE html>
 <html lang="en-us">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>Violent Theremin</title>
-
-	&lt;!&ndash;[if le IE 9]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-      <script src="scripts/respond.js"></script>
-    <![endif]&ndash;&gt;
-
 
 	<link href="../styles/normalize.css" rel="stylesheet" type="text/css">
 
@@ -243,31 +264,7 @@
 
   <script src="../scripts/install.js"></script>
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-  
-  <script>
-    var socket = io();
 
-    window.addEventListener("load", function(){ //when page loads
-      var lightbox = document.getElementById("light");
-      lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
-        socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
-      });
-    });
-
-    socket.on('light', function (data) { //get button status from client
-      document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
-      socket.emit("light", data); //send push button status to back to server
-    });
-
-    var socket = io();
-    socket.on('Curl', function (data) { //get button status from client
-      potX = data.dataX;
-      potY = data.dataY;
-      //console.log('dataX', data.dataX);
-      //console.log('dataY', data.dataY);
-    });
-  </script>
 <script src="../scripts/app.js"></script>
   
 
