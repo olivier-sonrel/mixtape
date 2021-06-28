@@ -26,7 +26,7 @@ const CHANNELS = [0x84, 0xc4, 0x94, 0xd4, 0xa4, 0xe4, 0xb4, 0xf4];
 http.createServer (function(req, res) { //create server
     console.log(req.url);
     if(req.url === '/'){
-        fs.readFile(__dirname + '/public/index.html, function(err, data) { //read file index.html in public folder
+        fs.readFile(__dirname + '/public/index.html', function(err, data) { //read file index.html in public folder
             if (err) {
                 res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
                 return res.end("404 Not Found");
