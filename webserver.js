@@ -4,11 +4,6 @@ const url = require('url');
 const path = require('path');
 const querystring = require('querystring');
 
-// parses the url request for a file and pulls the pathname
-const url_request = url.parse(request.url).pathname;
-const tmp = url_request.lastIndexOf(".");
-var extension  = url_request.substring((tmp + 1));//TODO test debug
-
 const io = require('socket.io')(http, {
     cors: {
         origin: "http://localhost:8000",
