@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {},
   "devDependencies": {
+    "i2c-bus": "^5.2.2",
     "socket.io": "^4.1.2"
   }
 }
